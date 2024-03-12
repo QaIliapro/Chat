@@ -43,10 +43,15 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setSize(WIDTH,HEIGHT);
-        String[] users = {"user1,\n user2, user3, user4, user5",
+        JScrollPane scrollLog = new JScrollPane(log);
+        JScrollPane scrollUser = new JScrollPane(userList);
+        String[] users = {"user1","user2", "user3", "user4", "user5",
         };
 
         userList.setListData(users);
+        log.setEditable(false);
+        scrollUser.setPreferredSize(new Dimension(150, 0));
+        cbAlwaysOnTop.addActionListener(this);
 
         paneTop.add(tfIPAddress);
         paneTop.add(tfPort);
@@ -58,8 +63,8 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         paneBottom.add(tfMessage, BorderLayout.CENTER);
         paneBottom.add(btnSend, BorderLayout.EAST);
 
-        add(log, BorderLayout.CENTER);
-        add(userList, BorderLayout.EAST);
+        add(scrollLog, BorderLayout.CENTER);
+        add(scrollUser, BorderLayout.EAST);
         add(paneTop, BorderLayout.NORTH);
         add(paneBottom, BorderLayout.SOUTH);
         setVisible(true);
@@ -68,8 +73,8 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
-        if(true) {
-
+        if (src == cbAlwaysOnTop) {
+            setAlwaysOnTop(cbAlwaysOnTop.isSelected());
         }else {
             throw new RuntimeException("Unknown source" + src);
         }
