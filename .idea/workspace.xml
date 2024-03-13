@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b645521d-9481-4044-afdb-02eda939e6d8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Pac1/ChatServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pac1/ClientGUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pac1/ServerSocketThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Chatt/ClientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Chatt/ClientGUI.java" afterDir="false" />
     </list>
@@ -38,13 +41,19 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/wolto/IdeaProjects/Chat/src/Pac1"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\wolto\IdeaProjects\Chat\src\Pac1" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="ClientGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Chatt.ClientGUI" />

@@ -1,6 +1,5 @@
-package Chatt;
+package Pac1;
 
-import javax.imageio.IIOException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
