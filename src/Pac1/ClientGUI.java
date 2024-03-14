@@ -125,13 +125,13 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 
     private void showException (Thread t, Throwable e) {
         String msg;
-        StackTraceElement[] ste = e.getStackTrace();
-        if (ste.length == 0)
+        StackTraceElement[] stackTraceElements = e.getStackTrace();
+        if (stackTraceElements.length == 0)
             msg = "Empty Stacktrace";
         else {
-            msg = String.format("Exception in \"%s\" %s: %s\n\tat %s",
-                    t.getName(),e.getClass().getCanonicalName(),e.getMessage(),
-                    JOptionPane.showMessageDialog(this, msg, "Exception", JOptionPane.ERROR_MESSAGE));
+            msg = String.format("Exception in \"%s\" %s\n\tat $s", t.getName(), e.getClass().getCanonicalName(),
+                    e.getMessage(),stackTraceElements[0]);
+            JOptionPane.showMessageDialog(this, msg, "Exception", JOptionPane.ERROR_MESSAGE);
         }
         JOptionPane.showMessageDialog(null, msg, "Exception", JOptionPane.ERROR_MESSAGE);
     }
