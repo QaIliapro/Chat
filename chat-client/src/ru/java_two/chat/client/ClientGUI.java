@@ -1,4 +1,4 @@
-package Pac1;
+package ru.java_two.chat.client;
 
 import javax.swing.*;
 import java.awt.*;

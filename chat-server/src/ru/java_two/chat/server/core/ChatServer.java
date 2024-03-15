@@ -1,4 +1,4 @@
-package Pac1;
+package ru.java_two.chat.server.core;
 
 public class ChatServer {
     ServerSocketThread thread;
