@@ -1,13 +1,17 @@
 package ru.java_two.chat.client;
 
+import ru.java_two.network.SocketThread;
+import ru.java_two.network.SocketThreadListener;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.Socket;
 
-public class ClientGUI extends JFrame implements ActionListener, Thread.UncaughtExceptionHandler {
+public class ClientGUI extends JFrame implements ActionListener, Thread.UncaughtExceptionHandler, SocketThreadListener {
 
     private static final int WIDTH = 400;
     private static final int HEIGHT = 300;
@@ -29,6 +33,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 
     private final JList<String> userList = new JList<>();
     private boolean shownIoErrors = false;
+    private SocketThread socketThread;
 
 
     public static void main(String[] args)  {
@@ -57,6 +62,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         cbAlwaysOnTop.addActionListener(this);
         btnSend.addActionListener(this);
         tfMessage.addActionListener(this);
+        btnLogin.addActionListener(this);
 
         paneTop.add(tfIPAddress);
         paneTop.add(tfPort);
@@ -82,8 +88,20 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
             setAlwaysOnTop(cbAlwaysOnTop.isSelected());
         } else if (src == btnSend || src == tfMessage) {
             sendMessage();
+        } else if (src == btnLogin){
+            connect();
+
         } else {
             throw new RuntimeException("Unknown source" + src);
+        }
+
+    }
+    private void connect() {
+        try {
+            Socket socket = new Socket(tfIPAddress.getText(),Integer.parseInt(tfPort.getText()));
+            SocketThread socketThread = new SocketThread(this, "Client", socket);
+        }catch (IOException e){
+            showException(Thread.currentThread(), e);
         }
 
     }
@@ -94,8 +112,9 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         if ("".equals(msg)) return;
         tfMessage.setText(null);
         tfMessage.grabFocus();
-        putLog(String.format("%s : %s", username, msg));
-        wrtMsgToLogfile(msg, username);
+        socketThread.sendMessage(msg);
+
+       // wrtMsgToLogfile(msg, username);
     }
 
     private void wrtMsgToLogfile(String msg, String username) {
@@ -141,5 +160,30 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         e.printStackTrace();
         showException(t, e);
         System.exit(1);
+    }
+
+    @Override
+    public void onSocketStart(SocketThread thread, Socket socket) {
+        putLog("Start");
+    }
+
+    @Override
+    public void onSocketStop(SocketThread thread) {
+        putLog("Stop");
+    }
+
+    @Override
+    public void onSocketReady(SocketThread thread, Socket socket) {
+        putLog("Ready");
+    }
+
+    @Override
+    public void onReceiveString(SocketThread thread, Socket socket, String msg) {
+        putLog(msg);
+    }
+
+    @Override
+    public void onSocketException(SocketThread thread, Exception exception) {
+        showException(thread,exception);
     }
 }

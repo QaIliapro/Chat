@@ -27,8 +27,8 @@ public class SocketThread extends Thread {
             out = new DataOutputStream(socket.getOutputStream());
             listener.onSocketReady(this, socket);
             while ((!interrupted())){
-                String message = in.readUTF();
-                listener.onReceiveString(this, socket, message);
+                String msg = in.readUTF();
+                listener.onReceiveString(this, socket, msg);
             }
         }catch (IOException e){
             listener.onSocketException(this, e);
@@ -51,9 +51,9 @@ public class SocketThread extends Thread {
         }
     }
 
-    public synchronized boolean sendMessage(String message){
+    public synchronized boolean sendMessage(String msg){
         try {
-            out.writeUTF(message);
+            out.writeUTF(msg);
             out.flush();
             return true;
         }catch (IOException e){
