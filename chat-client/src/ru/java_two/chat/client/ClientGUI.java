@@ -13,11 +13,11 @@ import java.net.Socket;
 
 public class ClientGUI extends JFrame implements ActionListener, Thread.UncaughtExceptionHandler, SocketThreadListener {
 
-    private static final int WIDTH = 400;
+    private static final int WIDTH = 600;
     private static final int HEIGHT = 300;
 
     private final JTextArea log = new JTextArea();
-    private final JPanel paneTop = new JPanel(new GridLayout(2, 3));
+    private final JPanel panelTop = new JPanel(new GridLayout(2, 3));
 
     private final JTextField tfIPAddress = new JTextField("127.0.0.1");
     private final JTextField tfPort = new JTextField("8000");
@@ -26,7 +26,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     private final JPasswordField tfPassword = new JPasswordField("12345");
     private final JButton btnLogin =new JButton("Login");
 
-    private final JPanel paneBottom = new JPanel(new BorderLayout());
+    private final JPanel panelBottom = new JPanel(new BorderLayout());
     private final JButton btnDisconnect = new JButton("<html><b>Disconnect</b></html>");
     private final JTextField tfMessage = new JTextField();
     private final JButton btnSend = new JButton("Send");
@@ -58,26 +58,29 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 
         userList.setListData(users);
         log.setEditable(false);
+        log.setLineWrap(true);
         scrollUser.setPreferredSize(new Dimension(150, 0));
         cbAlwaysOnTop.addActionListener(this);
         btnSend.addActionListener(this);
         tfMessage.addActionListener(this);
         btnLogin.addActionListener(this);
+        btnDisconnect.addActionListener(this);
+        panelBottom.setVisible(false);
 
-        paneTop.add(tfIPAddress);
-        paneTop.add(tfPort);
-        paneTop.add(cbAlwaysOnTop);
-        paneTop.add(tfLogin);
-        paneTop.add(tfPassword);
-        paneTop.add(btnLogin);
-        paneBottom.add(btnDisconnect, BorderLayout.WEST);
-        paneBottom.add(tfMessage, BorderLayout.CENTER);
-        paneBottom.add(btnSend, BorderLayout.EAST);
+        panelTop.add(tfIPAddress);
+        panelTop.add(tfPort);
+        panelTop.add(cbAlwaysOnTop);
+        panelTop.add(tfLogin);
+        panelTop.add(tfPassword);
+        panelTop.add(btnLogin);
+        panelBottom.add(btnDisconnect, BorderLayout.WEST);
+        panelBottom.add(tfMessage, BorderLayout.CENTER);
+        panelBottom.add(btnSend, BorderLayout.EAST);
 
         add(scrollLog, BorderLayout.CENTER);
         add(scrollUser, BorderLayout.EAST);
-        add(paneTop, BorderLayout.NORTH);
-        add(paneBottom, BorderLayout.SOUTH);
+        add(panelTop, BorderLayout.NORTH);
+        add(panelBottom, BorderLayout.SOUTH);
         setVisible(true);
     }
 
@@ -90,8 +93,9 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
             sendMessage();
         } else if (src == btnLogin){
             connect();
-
-        } else {
+        }else if (src == btnDisconnect) {
+            socketThread.close();
+        }else {
             throw new RuntimeException("Unknown source" + src);
         }
 
@@ -169,12 +173,18 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 
     @Override
     public void onSocketStop(SocketThread thread) {
-        putLog("Stop");
+
+        panelBottom.setVisible(false);
+        panelTop.setVisible(true);
     }
 
     @Override
     public void onSocketReady(SocketThread thread, Socket socket) {
-        putLog("Ready");
+        panelBottom.setVisible(true);
+        panelTop.setVisible(false);
+        String login = textFieldLogin.getText();
+        String password = new String(textFieldPassword.getPassword());
+        thread.sendMessage(Library.getAuthRequest(login, password));
     }
 
     @Override
