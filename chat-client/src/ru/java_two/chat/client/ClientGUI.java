@@ -1,5 +1,6 @@
 package ru.java_two.chat.client;
 
+import ru.java_two.chat.comman.Library;
 import ru.java_two.network.SocketThread;
 import ru.java_two.network.SocketThreadListener;
 
@@ -103,7 +104,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     private void connect() {
         try {
             Socket socket = new Socket(tfIPAddress.getText(),Integer.parseInt(tfPort.getText()));
-            SocketThread socketThread = new SocketThread(this, "Client", socket);
+            socketThread = new SocketThread(this, "Client", socket);
         }catch (IOException e){
             showException(Thread.currentThread(), e);
         }
@@ -182,8 +183,9 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     public void onSocketReady(SocketThread thread, Socket socket) {
         panelBottom.setVisible(true);
         panelTop.setVisible(false);
-        String login = textFieldLogin.getText();
-        String password = new String(textFieldPassword.getPassword());
+        Label textFieldLogin;
+        String login = tfLogin.getText();
+        String password = new String(tfPassword.getPassword());
         thread.sendMessage(Library.getAuthRequest(login, password));
     }
 

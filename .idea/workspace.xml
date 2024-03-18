@@ -5,14 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b645521d-9481-4044-afdb-02eda939e6d8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/chat-server/sqlite-jdbc-3.45.1.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-server/src/ru/java_two/chat/server/core/ChatServerListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-server/src/ru/java_two/chat/server/core/ClientThread.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-server/src/ru/java_two/chat/server/core/SqlClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/ru/java_two/chat/comman/Library.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chat.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Chat.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-client/chat-client.iml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client/chat-client.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-client/src/ru/java_two/chat/client/ClientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client/src/ru/java_two/chat/client/ClientGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-server/chat-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/chat-server.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-server/src/ru/java_two/chat/server/core/ChatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/ru/java_two/chat/server/core/ChatServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Chatt/ServerGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Chatt/ServerGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common-library/common-library.iml" beforeDir="false" afterPath="$PROJECT_DIR$/common/common.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +24,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -45,20 +47,20 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "jdk.selected.JAVA_MODULE": "21",
-    "last_opened_file_path": "C:/Users/wolto/IdeaProjects/Chat/chat-server/sqlite-jdbc-3.45.1.0.jar",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "editor.preferences.tabs"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/wolto/IdeaProjects/Chat/chat-server/sqlite-jdbc-3.45.1.0.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\wolto\IdeaProjects\Chat\src\Pac1" />
@@ -134,7 +136,7 @@
       <module name="chat-client" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ru.java_two.chat.client.*" />
+          <option name="PATTERN" value="ru.java_two.chat.server.core.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
