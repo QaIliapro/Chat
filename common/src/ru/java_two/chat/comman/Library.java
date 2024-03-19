@@ -20,11 +20,11 @@ public class Library {
         return AUTH_DENIED;
     }
 
-    public static String getMsgFormatError(String message){
-        return MSG_FORMAT_ERROR + DELIMITER +message;
+    public static String getMsgFormatError(String msg){
+        return MSG_FORMAT_ERROR + DELIMITER + msg;
     }
 
-    public static String getTypeBroadcast(String src, String message){
-        return TYPE_BROADCAST + DELIMITER + System.currentTimeMillis() + DELIMITER + src + DELIMITER + message;
+    public static String getTypeBroadcast(String src, String msg){
+        return TYPE_BROADCAST + DELIMITER + System.currentTimeMillis() + DELIMITER + src + DELIMITER + msg;
     }
 }

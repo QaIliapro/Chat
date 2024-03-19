@@ -31,7 +31,7 @@ public class ServerSocketThread extends Thread{
                     listener.onServerTimeout(this,server);
                     continue;
                 }
-                listener.onServerAccepted(this,server,socket);
+                listener.onSocketAccepted(this,server,socket);
 
             }
 

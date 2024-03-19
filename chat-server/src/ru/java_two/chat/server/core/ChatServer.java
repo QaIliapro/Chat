@@ -19,86 +19,105 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
     private final Vector<SocketThread> clients;
 
 
-    public ChatServer(ChatServerListener listener) {
+    public ChatServer(ChatServerListener listener) { //try
         this.listener = listener;
         this.clients = new Vector<>();
     }
 
-    public void start(int port) {
+    public void start(int port) { //try
         if (thread != null && thread.isAlive()) {
             putLog("Server already started");
         }else {
-            thread = new ServerSocketThread(this,"Thread of server", 8000, 2000);
+            thread = new ServerSocketThread(this,"Thread of server", port, 2000);
         }
     }
 
-    public void stop() {
-        if (thread == null || thread.isAlive()) {
+    public void stop() { //try но у меня не стоял ! в (!thread)
+        if (thread == null || !thread.isAlive()) {
             putLog("Server is not  running");
         }else {
             thread.interrupt();
         }
     }
 
-    private void putLog(String msg) {
+    private void putLog(String msg) { //try
         msg = DATE_FORMAT.format(System.currentTimeMillis()) +
                 Thread.currentThread().getName() + ": " + msg;
         listener.onChatServerMassage(msg);
     }
-    @Override
+
+    /**
+     *
+     * Сервер
+     */
+    @Override //try
     public void onServerStart(ServerSocketThread thread) {
         putLog("Server thread started");
         SqlClient.connect();
     }
 
-    @Override
+    @Override //try
     public void onServerStop(ServerSocketThread thread) {
         putLog("Server thread stopped");
         SqlClient.disconnect();
-
+        //добавил не было
+        for (int i = 0; i < clients.size(); i++) {
+            clients.get(i).close();
+        }
     }
 
-    @Override
+    @Override //try
     public void onServerSocketCreated(ServerSocketThread thread, ServerSocket server) {
         putLog("Server timeout");
-
     }
 
-    @Override
+    @Override //try
     public void onServerTimeout(ServerSocketThread thread, ServerSocket server) {
 
     }
-//всесто он сервера должен быть он  сокет
-    @Override
-    public void onServerAccepted(ServerSocketThread thread, ServerSocket server, Socket socket) {
-        putLog("Client connect");
-        String name = "SocketThread " + socket.getInetAddress() + ":" + socket.getPort();
-        new ClientThread(this, name, socket);
 
-    }
-
-    @Override
+    @Override //try
     public void onServerException(ServerSocketThread thread, Throwable exception) {
         exception.printStackTrace();
     }
 
     @Override
+    public void onSocketAccepted(ServerSocketThread thread, ServerSocket server, Socket socket) {
+        putLog("Client connect");
+        String name = "SocketThread " + socket.getInetAddress() + ":" + socket.getPort();
+        new ClientThread(this, name, socket);
+    }
+
+    /**
+     * сокеты
+     */
+
+
+    @Override //try
     public synchronized void onSocketStart(SocketThread thread, Socket socket) {
         putLog("Socket created");
     }
 
-    @Override
+    @Override// Проверять
     public synchronized void onSocketStop(SocketThread thread) {
         putLog("Socket stopped");
+        clients.remove(thread);
+        ClientThread clientThread = (ClientThread) thread;
+        if(clientThread.isAuthorized() && !clientThread.isReconnecting()){
+            sendToAllAuthorizedClients(Library.getTypeBroadcast("Server ",
+                    clientThread.getNickname() + " disconnected"));
+        }
+        sendToAllAuthorizedClients(Library.getUserList(getUsers()));
     }
 
     @Override
     public synchronized void onSocketReady(SocketThread thread, Socket socket) {
         putLog("Socket ready");
         clients.add(thread);
+        sendToAllAuthorizedClients(Library.getUserList(getUsers()));
     }
 
-    @Override
+    @Override //Try
     public void onReceiveString(SocketThread thread, Socket socket, String msg) {
         ClientThread client = (ClientThread) thread;
         if (client.isAuthorized())
@@ -110,6 +129,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
 //            client.sendMessage(message);
 //        }
     }
+
     public void handleNonAuthMessage(ClientThread client,String msg) {
         String[] arr = msg.split(Library.DELIMITER);
         if (arr.length != 3 || !arr[0].equals(Library.AUTH_REQUEST)) {
@@ -118,25 +138,69 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
         }
         String login = arr[1];
         String password = arr[2];
-        String nickname = SqlClient.getNickname(login,password);
+        String nickname = SqlClient.getNickname(login, password);
         if (nickname == null) {
             putLog("Invalid login attempt" + login);
             client.authFail();
             return;
+        }else {
+            ClientThread oldClient = findClientByNickname(nickname);
+            client.authAccept(nickname);
+            if (oldClient == null) {
+                sendToAllAuthorizedClients(Library.getTypeBroadcast("Server ", nickname + " connected"));
+            }else {
+                oldClient.reconnect();
+                clients.remove(oldClient);
+            }
         }
-        client.authAccept(nickname);
+        sendToAllAuthorizedClients(Library.getUserList(getUsers()));
     }
-    public void handleAuthMessage(ClientThread client,String msg) {
+
+    private void handleAuthMessage(ClientThread client, String msg) {
+        String[] arr = message.split(Library.DELIMITER);
+        String messageType = arr[0];
+        switch (messageType) {
+            case Library.TYPE_BROADCAST_CLIENT:
+                sendToAllAuthorizedClients(Library.getTypeBroadcast(client.getNickname(), arr[1]));
+                break;
+            default:
+                client.messageFormatError(message);
+        }
+    }
+
+
+    public void sendToAllAuthorizedClients(String msg) { //try
         for (int i = 0; i < clients.size(); i++) {
             ClientThread recipient = (ClientThread)clients.get(i);
             if (!recipient.isAuthorized())continue;
-            recipient.sendMessage(Library.getTypeBroadcast(client.getNickname(),msg));
+            recipient.sendMessage(msg);
         }
+    }
+
+    private synchronized ClientThread findClientByNickname(String nickname) { // try
+        for (int i = 0; i < clients.size(); i++) {
+            ClientThread clientThread = (ClientThread) clients.get(i);
+            if(!clientThread.isAuthorized()) continue;
+            if(clientThread.getNickname().equals(nickname))
+                return clientThread;
+        }
+        return null;
+    }
+
+    private String getUsers() { //try
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < clients.size(); i++) {
+            ClientThread clientThread = (ClientThread) clients.get(i);
+            if (!clientThread.isAuthorized()) continue;
+            stringBuilder.append(clientThread.getNickname()).append(Library.DELIMITER);
+        }
+        return  stringBuilder.toString();
     }
 
     public synchronized void onSocketException(SocketThread thread, Exception exception) {
         exception.printStackTrace();
 
+        //try
     }
 
 }

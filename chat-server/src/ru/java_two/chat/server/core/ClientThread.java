@@ -6,21 +6,24 @@ import ru.java_two.network.SocketThreadListener;
 
 import java.net.Socket;
 
-public class ClientThread extends SocketThread  {
+public class ClientThread extends SocketThread {
     private String nickname;
     private boolean isAuthorized;
 
     public ClientThread(SocketThreadListener listener, String name, Socket socket) {
         super(listener, name, socket);
+        //try
     }
 
-    public String getNickname() {
+    public String getNickname() { //try
         return nickname;
     }
 
-    public boolean isAuthorized() {
+    public boolean isAuthorized() { //try
         return isAuthorized;
     }
+
+
     void  setAuthorized (String nickname) {
         isAuthorized = true;
         this.nickname = nickname;

@@ -9,5 +9,5 @@ public interface ServerSocketThreadListener {
     void onServerSocketCreated(ServerSocketThread thread, ServerSocket server);
     void onServerTimeout(ServerSocketThread thread, ServerSocket server);
     void onServerException(ServerSocketThread thread, Throwable exception);
-    void onServerAccepted(ServerSocketThread thread, ServerSocket server, Socket socket);
+    void onSocketAccepted(ServerSocketThread thread, ServerSocket server, Socket socket);
 }
