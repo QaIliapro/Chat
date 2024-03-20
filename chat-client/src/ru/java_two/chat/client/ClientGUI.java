@@ -228,8 +228,8 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 
     @Override
     public void onReceiveString(SocketThread thread, Socket socket, String msg) {
-        putLog(msg); // У ник handleMessage на месте putLog
-    }
+        handleMessage(msg);
+    }//try
 
     @Override //try
     public void onSocketException(SocketThread thread, Exception exception) {

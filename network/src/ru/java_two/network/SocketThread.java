@@ -25,32 +25,21 @@ public class SocketThread extends Thread {
         try {
             listener.onSocketStart(this, socket);
             in = new DataInputStream(socket.getInputStream());
-            //DataInputStream in = new DataInputStream(socket.getInputStream()); У ник нету
             out = new DataOutputStream(socket.getOutputStream());
             listener.onSocketReady(this, socket);
-            while ((!interrupted())){
+            while (!isInterrupted()) {
                 String msg = in.readUTF();
                 listener.onReceiveString(this, socket, msg);
             }
-        }catch (IOException e){
+        }catch (IOException e) {
             listener.onSocketException(this, e);
         }finally {
             try {
                 socket.close();
-            }catch (IOException e){
+            }catch (IOException e) {
                 listener.onSocketException(this, e);
             }
             listener.onSocketStop(this);
-        }
-    }
-
-    public synchronized void close() {//try
-        interrupt();
-        try {
-            in.close();
-            socket.close();
-        }catch (IOException e ) {
-            listener.onSocketException(this, e);
         }
     }
 
@@ -63,6 +52,16 @@ public class SocketThread extends Thread {
             listener.onSocketException(this, e);
             close();
             return  false;
+        }
+    }
+
+    public synchronized void close() {//try
+        interrupt();
+        try {
+            in.close();
+            socket.close();
+        }catch (IOException e ) {
+            listener.onSocketException(this, e);
         }
     }
 }

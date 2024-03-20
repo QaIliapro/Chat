@@ -145,7 +145,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
             return;
         }else {
             ClientThread oldClient = findClientByNickname(nickname);
-            client.authAccept(nickname);
+            client.authAccept(nickname);//problema
             if (oldClient == null) {
                 sendToAllAuthorizedClients(Library.getTypeBroadcast("Server ", nickname + " connected"));
             }else {
@@ -157,7 +157,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
     }
 
     private void handleAuthMessage(ClientThread client, String msg) {
-        String[] arr = message.split(Library.DELIMITER);
+        String[] arr = msg.split(Library.DELIMITER);
         String messageType = arr[0];
         switch (messageType) {
             case Library.TYPE_BROADCAST_CLIENT:
