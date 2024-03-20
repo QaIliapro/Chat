@@ -6,13 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="b645521d-9481-4044-afdb-02eda939e6d8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-client/src/ru/java_two/chat/client/ClientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client/src/ru/java_two/chat/client/ClientGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-server/src/ru/java_two/chat/server/core/ChatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/ru/java_two/chat/server/core/ChatServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-server/src/ru/java_two/chat/server/core/ChatServerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/ru/java_two/chat/server/core/ChatServerListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-server/src/ru/java_two/chat/server/core/ClientThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/ru/java_two/chat/server/core/ClientThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server/src/ru/java_two/chat/server/core/SqlClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/ru/java_two/chat/server/core/SqlClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server/src/ru/java_two/chat/server/gui/ServerGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/ru/java_two/chat/server/gui/ServerGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/src/ru/java_two/chat/comman/Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/ru/java_two/chat/comman/Library.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/network/src/ru/java_two/network/ServerSocketThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/ru/java_two/network/ServerSocketThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/network/src/ru/java_two/network/ServerSocketThreadListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/ru/java_two/network/ServerSocketThreadListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/network/src/ru/java_two/network/SocketThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/ru/java_two/network/SocketThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

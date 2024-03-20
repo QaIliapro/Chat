@@ -9,6 +9,7 @@ import java.net.Socket;
 public class ClientThread extends SocketThread {
     private String nickname;
     private boolean isAuthorized;
+    private boolean isReconnecting;
 
     public ClientThread(SocketThreadListener listener, String name, Socket socket) {
         super(listener, name, socket);
@@ -23,17 +24,26 @@ public class ClientThread extends SocketThread {
         return isAuthorized;
     }
 
+    public boolean isReconnecting() {//try
+        return isReconnecting;
+    }
 
-    void  setAuthorized (String nickname) {
+    void reconnect() { // try
+        isReconnecting = true;
+        close();
+    }
+
+    void  setAuthorized (String nickname) { // authAccept
         isAuthorized = true;
         this.nickname = nickname;
         sendMessage(Library.getAuthAccept(nickname));
     }
-    void authFail() {
+
+    void authFail() {//rty
         sendMessage(Library.getAuthDenied());
         close();
     }
-    void msgFormatError(String msg) {
+    void msgFormatError(String msg) {//try
         sendMessage(Library.getMsgFormatError(msg));
         close();
     }

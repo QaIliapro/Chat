@@ -2,7 +2,7 @@ package ru.java_two.network;
 
 import java.net.Socket;
 
-public interface SocketThreadListener {
+public interface SocketThreadListener {//try
 
     void onSocketStart(SocketThread thread, Socket socket);
     void onSocketStop(SocketThread thread);

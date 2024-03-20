@@ -6,7 +6,7 @@ public class SqlClient {
     private static Connection connection;
     private static Statement statement;
     synchronized static void connect() {
-        try {
+        try { //try
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:chat-server/chat-server");
             statement = connection.createStatement();
@@ -15,20 +15,20 @@ public class SqlClient {
         }
     }
 
-    synchronized static String getNickname(String login, String password){
+    synchronized static String getNickname(String login, String password) { //try
         String query = String.format("select nickname from clients where login = '%s' and password = '%s' ",
                 login, password);
 
         try (ResultSet set = statement.executeQuery(query)) {
             if (set.next())
                 return set.getString(1);
-        }catch (SQLException e){
+        }catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return null;
     }
 
-    synchronized static void disconnect() {
+    synchronized static void disconnect() { //try
         try {
             connection.close();
         }catch (SQLException e){

@@ -10,20 +10,22 @@ public class SocketThread extends Thread {
 
     private final SocketThreadListener listener;
     private final Socket socket;
+    DataInputStream in;//get
     private DataOutputStream out;
 
-    public SocketThread(SocketThreadListener listener, String name, Socket socket){
+    public SocketThread(SocketThreadListener listener, String name, Socket socket) {
         super((name));
         this.socket = socket;
         this.listener = listener;
         start();
-    }
+    }//try
 
     @Override
     public void run() {
         try {
             listener.onSocketStart(this, socket);
-            DataInputStream in = new DataInputStream(socket.getInputStream());
+            in = new DataInputStream(socket.getInputStream());
+            //DataInputStream in = new DataInputStream(socket.getInputStream()); У ник нету
             out = new DataOutputStream(socket.getOutputStream());
             listener.onSocketReady(this, socket);
             while ((!interrupted())){
@@ -42,21 +44,22 @@ public class SocketThread extends Thread {
         }
     }
 
-    public synchronized void close(){
+    public synchronized void close() {//try
         interrupt();
         try {
+            in.close();
             socket.close();
-        }catch (IOException e ){
+        }catch (IOException e ) {
             listener.onSocketException(this, e);
         }
     }
 
-    public synchronized boolean sendMessage(String msg){
+    public synchronized boolean sendMessage(String msg) {//try
         try {
             out.writeUTF(msg);
             out.flush();
             return true;
-        }catch (IOException e){
+        }catch (IOException e) {
             listener.onSocketException(this, e);
             close();
             return  false;

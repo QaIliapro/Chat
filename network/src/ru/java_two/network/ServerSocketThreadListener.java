@@ -3,7 +3,7 @@ package ru.java_two.network;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public interface ServerSocketThreadListener {
+public interface ServerSocketThreadListener {//try
     void onServerStart(ServerSocketThread thread);
     void onServerStop(ServerSocketThread thread);
     void onServerSocketCreated(ServerSocketThread thread, ServerSocket server);

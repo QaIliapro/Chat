@@ -1,4 +1,5 @@
 package ru.java_two.network;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -15,10 +16,10 @@ public class ServerSocketThread extends Thread{
         this.timeout = timeout;
         this.listener = listener;
         start();
-    }
+    } //try
 
     @Override
-    public void run() {
+    public void run() { //try
         listener.onServerStart(this);
         try(ServerSocket server = new ServerSocket(port)) {
             server.setSoTimeout(timeout);
@@ -32,15 +33,11 @@ public class ServerSocketThread extends Thread{
                     continue;
                 }
                 listener.onSocketAccepted(this,server,socket);
-
             }
-
         }catch (IOException e) {
             listener.onServerException(this,e);
         }finally {
             listener.onServerStop(this);
         }
-
     }
-
 }
