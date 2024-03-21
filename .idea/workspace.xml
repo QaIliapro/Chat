@@ -8,8 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-client/src/ru/java_two/chat/client/ClientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client/src/ru/java_two/chat/client/ClientGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-server/src/ru/java_two/chat/server/core/ChatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/ru/java_two/chat/server/core/ChatServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/src/ru/java_two/network/ServerSocketThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/ru/java_two/network/ServerSocketThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/src/ru/java_two/network/SocketThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/ru/java_two/network/SocketThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

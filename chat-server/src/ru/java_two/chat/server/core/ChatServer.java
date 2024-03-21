@@ -182,7 +182,7 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
             ClientThread clientThread = (ClientThread) clients.get(i);
             if(!clientThread.isAuthorized()) continue;
             if(clientThread.getNickname().equals(nickname))
-                return clientThread;
+                return clientThread;// У ванька только клиент
         }
         return null;
     }

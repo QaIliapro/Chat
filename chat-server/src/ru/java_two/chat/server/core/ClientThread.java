@@ -33,7 +33,7 @@ public class ClientThread extends SocketThread {
         close();
     }
 
-    void  setAuthorized (String nickname) { // authAccept
+    void  setAuthorized (String nickname) { // authAccept надо сверить с ваньком 
         isAuthorized = true;
         this.nickname = nickname;
         sendMessage(Library.getAuthAccept(nickname));
